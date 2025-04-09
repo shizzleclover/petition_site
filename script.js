@@ -1,5 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Check authentication for petition page
+    if (window.location.pathname.includes('petition.html')) {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            window.location.href = 'index.html';
+            return;
+        }
+    }
     const BASE_URL = 'https://victor-petition.onrender.com';
+    
+    // Token management
+    const setToken = (token) => {
+        localStorage.setItem('authToken', token);
+    };
+
+    const getToken = () => {
+        return localStorage.getItem('authToken');
+    };
+
+    const clearToken = () => {
+        localStorage.removeItem('authToken');
+    };
 
     const showMessage = (elementId, message, type) => {
         const messageElement = document.getElementById(elementId);
@@ -10,6 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const hideMessage = (elementId) => {
+        const messageElement = document.getElementById(elementId);
+        if (messageElement) {
+            messageElement.className = 'message';
+        }
+    };
+
     const toggleSpinner = (buttonId, show) => {
         const button = document.getElementById(buttonId);
         const spinner = button.querySelector('.spinner');
@@ -36,14 +63,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const password = document.getElementById('password').value;
 
             try {
-                const response = await fetch(`${BASE_URL}/api/auth/login`, {
+                const response = await fetch(`${BASE_URL}/api/auth/login `, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
                     body: JSON.stringify({ matricNo, password })
                 });
 
                 const data = await response.json();
                 if (response.ok && data.success) {
+                    if (data.token) {
+                        setToken(data.token);
+                    }
                     showMessage('login-message', 'Login successful! Redirecting...', 'success');
                     setTimeout(() => {
                         window.location.href = 'petition.html';
@@ -72,19 +105,34 @@ document.addEventListener('DOMContentLoaded', () => {
             const password = document.getElementById('password').value;
 
             try {
-                const response = await fetch(`${BASE_URL}/api/auth/signup`, {
+                const response = await fetch(`${BASE_URL} /api/auth/signup`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
                     body: JSON.stringify({ name, matricNo, password })
                 });
 
                 const data = await response.json();
-                if (response.ok && data.success) {
-                    showMessage('signup-message', 'Signup successful! Redirecting to login...', 'success');
-                    setTimeout(() => {
-                        window.location.href = 'index.html';
-                    }, 1500);
+                if (!response.ok) {
+                    throw new Error(data.message || 'Signup failed');
+                }
+                if (data.success) {
+                    if (data.token) {
+                        setToken(data.token);
+                        showMessage('signup-message', 'Signup successful! Redirecting to petition page...', 'success');
+                        setTimeout(() => {
+                            window.location.href = 'petition.html';
+                        }, 1500);
+                    } else {
+                        showMessage('signup-message', 'Signup successful! Please login.', 'success');
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 1500);
+                    }
                 } else {
+                    toggleSpinner('signup-btn', false);
                     showMessage('signup-message', data.message || 'Signup failed. Matric number might already be in use.', 'error');
                 }
             } catch (error) {
@@ -111,9 +159,22 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleSpinner('sign-btn', true);
 
             try {
-                const response = await fetch(`${BASE_URL}/api/sign`, {
+                const token = getToken();
+                if (!token) {
+                    showMessage('petition-message', 'Please login to sign the petition.', 'error');
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                    return;
+                }
+
+                const response = await fetch(`${BASE_URL}/sign`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/json'
+                    },
                     body: JSON.stringify({ agreed: termsCheckbox.checked })
                 });
 
@@ -143,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
             accordionContent.classList.toggle('active');
         });
     }
-}
+
 });
 
 

@@ -42,7 +42,7 @@
             </button>
         </form>
         <div id="petition-message" class="message"></div>
-        <p class="link-text"><a href="index.html">Logout</a></p>
+        <p class="link-text"><a href="#" onclick="localStorage.removeItem('authToken'); window.location.href='index.html'; return false;">Logout</a></p>
     </div>
     <footer class="footer">
         <p>Matric Number and User details are encrypted for privacy and annonymity <a href="https://github.com/Firesolami/justice-for-victor/blob/main/controllers/auth.controller.js#L28" target="_blank">Justice for Victor</a></p>
