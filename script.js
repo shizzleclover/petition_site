@@ -4,13 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const email = document.getElementById('email').value;
             const matric = document.getElementById('matric').value;
+            const password = document.getElementById('password').value;
 
             fetch('/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, matric })
+                body: JSON.stringify({ matric, password })
             })
             .then(response => response.json())
             .then(data => {
@@ -30,13 +30,13 @@ document.addEventListener('DOMContentLoaded', () => {
         signupForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
             const matric = document.getElementById('matric').value;
+            const password = document.getElementById('password').value;
 
             fetch('/api/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, matric })
+                body: JSON.stringify({ name, matric, password })
             })
             .then(response => response.json())
             .then(data => {

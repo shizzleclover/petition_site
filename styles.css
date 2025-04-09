@@ -6,13 +6,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #f5f7fa; /* Softer, modern background */
+    background: #f5f7fa;
     color: #2d3748;
 }
 
 .container {
     width: 100%;
-    max-width: 360px; /* Compact width to match the image */
+    max-width: 360px;
     margin: 20px;
     padding: 30px;
     background: #ffffff;
@@ -23,6 +23,12 @@ body {
 
 .container:hover {
     box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Specific styling for Terms page container */
+.terms-container {
+    max-width: 600px;
+    padding: 40px;
 }
 
 h1 {
@@ -48,7 +54,8 @@ label {
 }
 
 input[type="text"],
-input[type="email"] {
+input[type="email"],
+input[type="password"] {
     width: 100%;
     padding: 12px;
     border: 1px solid #e2e8f0;
@@ -60,7 +67,8 @@ input[type="email"] {
 }
 
 input[type="text"]:focus,
-input[type="email"]:focus {
+input[type="email"]:focus,
+input[type="password"]:focus {
     border-color: #4299e1;
     box-shadow: 0 0 6px rgba(66, 153, 225, 0.2);
     outline: none;
@@ -69,7 +77,7 @@ input[type="email"]:focus {
 button {
     width: 100%;
     padding: 14px;
-    background: #4299e1; /* Softer blue to match the image */
+    background: #4299e1;
     color: white;
     border: none;
     border-radius: 8px;
@@ -85,7 +93,7 @@ button:disabled {
 }
 
 button:hover:not(:disabled) {
-    background: #3182ce; /* Slightly darker blue for hover */
+    background: #3182ce;
 }
 
 .link-text {
@@ -141,17 +149,37 @@ button:hover:not(:disabled) {
     transition: max-height 0.3s ease, padding 0.3s ease;
 }
 
+.accordion-content.active {
+    max-height: 200px; /* Fixed height to enable scrolling */
+    padding: 15px;
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Custom scrollbar styling */
+.accordion-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.accordion-content::-webkit-scrollbar-track {
+    background: #e2e8f0;
+    border-radius: 8px;
+}
+
+.accordion-content::-webkit-scrollbar-thumb {
+    background: #a0aec0;
+    border-radius: 8px;
+}
+
+.accordion-content::-webkit-scrollbar-thumb:hover {
+    background: #718096;
+}
+
 .accordion-content p {
-    margin: 15px 0;
+    margin: 0;
     font-size: 13px;
     font-weight: 400;
     color: #5a6170;
     line-height: 1.5;
-}
-
-.accordion-content.active {
-    max-height: 200px;
-    padding: 15px;
 }
 
 /* Checkbox Styling */
@@ -182,12 +210,38 @@ button:hover:not(:disabled) {
     text-decoration: underline;
 }
 
+/* Terms and Conditions Content Styling */
+.terms-content {
+    margin-bottom: 30px;
+}
+
+.terms-content h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2d3748;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.terms-content p {
+    font-size: 14px;
+    font-weight: 400;
+    color: #5a6170;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 480px) {
     .container {
         max-width: 100%;
         margin: 15px;
         padding: 20px;
+    }
+
+    .terms-container {
+        max-width: 100%;
+        padding: 25px;
     }
 
     h1 {
@@ -200,7 +254,8 @@ button:hover:not(:disabled) {
     }
 
     input[type="text"],
-    input[type="email"] {
+    input[type="email"],
+    input[type="password"] {
         padding: 10px;
         font-size: 13px;
     }
@@ -219,8 +274,21 @@ button:hover:not(:disabled) {
         font-size: 12px;
     }
 
+    .accordion-content.active {
+        max-height: 150px; /* Slightly smaller on mobile */
+    }
+
     .link-text {
         font-size: 12px;
         margin-top: 15px;
+    }
+
+    .terms-content h2 {
+        font-size: 16px;
+        margin-top: 15px;
+    }
+
+    .terms-content p {
+        font-size: 13px;
     }
 }
