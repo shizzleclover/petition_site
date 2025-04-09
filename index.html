@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Petition Site</title>
-    <link rel="icon" href="petition.png" type="image/png" />
-
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -17,6 +15,7 @@
             <div class="form-group">
                 <label for="matric">Matric Number</label>
                 <input type="text" id="matric" name="matric" required>
+                <small class="encryption-note">Your matric number is fully encrypted for security.</small>
             </div>
             <div class="form-group password-group">
                 <label for="password">Password</label>
@@ -27,11 +26,18 @@
                     </span>
                 </div>
             </div>
-            <button type="submit">Login</button>
+            <button type="submit" id="login-btn">
+                <span class="btn-text">Login</span>
+                <span class="spinner hidden"><i class="fas fa-spinner fa-spin"></i></span>
+            </button>
         </form>
         <div id="login-message" class="message"></div>
         <p class="link-text">Don't have an account? <a href="signup.html">Sign up</a></p>
     </div>
+    <footer class="footer">
+        <p>Matric Number and User details are encrypted for privacy and annonymity <a href="https://github.com/Firesolami/justice-for-victor/blob/main/controllers/auth.controller.js#L28" target="_blank">Justice for Victor</a></p>
+    </footer>
+    
     <script src="script.js"></script>
 </body>
 </html>

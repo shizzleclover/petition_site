@@ -36,11 +36,17 @@
                     I agree to the <a href="terms.html">Terms and Conditions</a>
                 </label>
             </div>
-            <button type="submit" disabled id="sign-btn">Sign Petition</button>
+            <button type="submit" disabled id="sign-btn">
+                <span class="btn-text">Sign Petition</span>
+                <span class="spinner hidden"><i class="fas fa-spinner fa-spin"></i></span>
+            </button>
         </form>
         <div id="petition-message" class="message"></div>
         <p class="link-text"><a href="index.html">Logout</a></p>
     </div>
+    <footer class="footer">
+        <p>Matric Number and User details are encrypted for privacy and annonymity <a href="https://github.com/Firesolami/justice-for-victor/blob/main/controllers/auth.controller.js#L28" target="_blank">Justice for Victor</a></p>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>

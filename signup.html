@@ -19,6 +19,7 @@
             <div class="form-group">
                 <label for="matric">Matric Number</label>
                 <input type="text" id="matric" name="matric" required>
+                <small class="encryption-note">Your matric number is fully encrypted for security.</small>
             </div>
             <div class="form-group password-group">
                 <label for="password">Password</label>
@@ -29,11 +30,17 @@
                     </span>
                 </div>
             </div>
-            <button type="submit">Sign Up</button>
+            <button type="submit" id="signup-btn">
+                <span class="btn-text">Sign Up</span>
+                <span class="spinner hidden"><i class="fas fa-spinner fa-spin"></i></span>
+            </button>
         </form>
         <div id="signup-message" class="message"></div>
         <p class="link-text">Already have an account? <a href="index.html">Login</a></p>
     </div>
+    <footer class="footer">
+        <p>Matric Number and User details are encrypted for privacy and annonymity <a href="https://github.com/Firesolami/justice-for-victor/blob/main/controllers/auth.controller.js#L28" target="_blank">Justice for Victor</a></p>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
