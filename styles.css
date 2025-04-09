@@ -64,6 +64,9 @@ input[type="password"] {
     font-weight: 400;
     background: #ffffff;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 input[type="text"]:focus,
@@ -72,6 +75,30 @@ input[type="password"]:focus {
     border-color: #4299e1;
     box-shadow: 0 0 6px rgba(66, 153, 225, 0.2);
     outline: none;
+}
+
+/* Password Toggle Styling */
+.password-group {
+    position: relative;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #718096;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+    color: #4299e1;
 }
 
 button {
@@ -85,6 +112,7 @@ button {
     font-weight: 600;
     cursor: pointer;
     transition: background 0.3s ease;
+    touch-action: manipulation;
 }
 
 button:disabled {
@@ -132,6 +160,7 @@ button:hover:not(:disabled) {
     color: #4a5568;
     cursor: pointer;
     transition: background 0.3s ease;
+    touch-action: manipulation;
 }
 
 .accordion-btn:hover {
@@ -150,12 +179,17 @@ button:hover:not(:disabled) {
 }
 
 .accordion-content.active {
-    max-height: 200px; /* Fixed height to enable scrolling */
+    max-height: 200px;
     padding: 15px;
-    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
-/* Custom scrollbar styling */
+.accordion-content {
+    scrollbar-width: thin;
+    scrollbar-color: #a0aec0 #e2e8f0;
+}
+
 .accordion-content::-webkit-scrollbar {
     width: 6px;
 }
@@ -231,21 +265,57 @@ button:hover:not(:disabled) {
     margin-bottom: 15px;
 }
 
+/* Message Styling */
+.message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.message.success {
+    background: #e6fffa;
+    color: #2b6cb0;
+    border: 1px solid #b2f5ea;
+}
+
+.message.error {
+    background: #fff1f0;
+    color: #c53030;
+    border: 1px solid #feb2b2;
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 480px) {
+    body {
+        align-items: flex-start;
+        padding-top: 20px;
+    }
+
     .container {
-        max-width: 100%;
-        margin: 15px;
+        max-width: 90%;
+        margin: 10px auto;
         padding: 20px;
+        border-radius: 10px;
     }
 
     .terms-container {
-        max-width: 100%;
+        max-width: 90%;
         padding: 25px;
     }
 
     h1 {
-        font-size: 22px;
+        font-size: 20px;
         margin-bottom: 20px;
     }
 
@@ -257,29 +327,43 @@ button:hover:not(:disabled) {
     input[type="email"],
     input[type="password"] {
         padding: 10px;
-        font-size: 13px;
+        font-size: 14px;
+        border-radius: 6px;
+    }
+
+    .password-toggle {
+        right: 10px;
+        font-size: 14px;
     }
 
     button {
         padding: 12px;
         font-size: 14px;
+        border-radius: 6px;
     }
 
     .accordion-btn {
         padding: 10px;
-        font-size: 13px;
-    }
-
-    .accordion-content p {
-        font-size: 12px;
+        font-size: 14px;
+        border-radius: 6px;
     }
 
     .accordion-content.active {
-        max-height: 150px; /* Slightly smaller on mobile */
+        max-height: 150px;
+        padding: 10px 15px;
+    }
+
+    .accordion-content p {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .checkbox-group label {
+        font-size: 13px;
     }
 
     .link-text {
-        font-size: 12px;
+        font-size: 13px;
         margin-top: 15px;
     }
 
@@ -290,5 +374,11 @@ button:hover:not(:disabled) {
 
     .terms-content p {
         font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .message {
+        font-size: 12px;
+        padding: 8px;
     }
 }

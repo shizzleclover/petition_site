@@ -1,4 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Function to show messages
+    const showMessage = (elementId, message, type) => {
+        const messageElement = document.getElementById(elementId);
+        if (messageElement) {
+            messageElement.textContent = message;
+            messageElement.className = `message ${type} show`;
+        }
+    };
+
     // Login Form
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
@@ -15,12 +24,17 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    window.location.href = 'petition.html';
+                    showMessage('login-message', 'Login successful! Redirecting...', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'petition.html';
+                    }, 1500);
                 } else {
-                    alert('Login failed. Please check your credentials.');
+                    showMessage('login-message', 'Login failed. Please check your credentials.', 'error');
                 }
             })
-            .catch(() => alert('Error connecting to server.'));
+            .catch(() => {
+                showMessage('login-message', 'Error connecting to server.', 'error');
+            });
         });
     }
 
@@ -41,12 +55,17 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    window.location.href = 'index.html';
+                    showMessage('signup-message', 'Signup successful! Redirecting to login...', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
                 } else {
-                    alert('Signup failed. Matric number might already be in use.');
+                    showMessage('signup-message', 'Signup failed. Matric number might already be in use.', 'error');
                 }
             })
-            .catch(() => alert('Error connecting to server.'));
+            .catch(() => {
+                showMessage('signup-message', 'Error connecting to server.', 'error');
+            });
         });
     }
 
@@ -71,14 +90,16 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('Thank you for signing the petition!');
+                    showMessage('petition-message', 'Petition Signed Successfully!', 'success');
                     termsCheckbox.checked = false;
                     signBtn.disabled = true;
                 } else {
-                    alert('Error signing the petition.');
+                    showMessage('petition-message', 'Error signing the petition.', 'error');
                 }
             })
-            .catch(() => alert('Error connecting to server.'));
+            .catch(() => {
+                showMessage('petition-message', 'Error connecting to server.', 'error');
+            });
         });
     }
 
@@ -92,3 +113,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// Password Toggle Function
+function togglePassword(inputId, toggleElement) {
+    const input = document.getElementById(inputId);
+    const icon = toggleElement.querySelector('i');
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
+}
