@@ -7,8 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
     }
+
     const BASE_URL = 'https://victor-petition.onrender.com';
-    
+
     // Token management
     const setToken = (token) => {
         localStorage.setItem('authToken', token);
@@ -63,11 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const password = document.getElementById('password').value;
 
             try {
-                const response = await fetch(`${BASE_URL}/api/auth/login `, {
+                const response = await fetch(`${BASE_URL}/api/auth/login`, {
                     method: 'POST',
                     headers: { 
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json'
+                        'Accept': 'application/json',
+                        'Origin': window.location.origin
                     },
                     body: JSON.stringify({ matricNo, password })
                 });
@@ -86,7 +88,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (error) {
                 console.error('Login error:', error);
-                showMessage('login-message', 'Error connecting to server. Please try again later.', 'error');
+                if (error.message.includes('Failed to fetch')) {
+                    showMessage('login-message', 'Cannot connect to the server. Please check your internet connection or try again later.', 'error');
+                } else {
+                    showMessage('login-message', 'Error connecting to server: ' + error.message, 'error');
+                }
             } finally {
                 toggleSpinner('login-btn', false);
             }
@@ -105,11 +111,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const password = document.getElementById('password').value;
 
             try {
-                const response = await fetch(`${BASE_URL} /api/auth/signup`, {
+                const response = await fetch(`${BASE_URL}/api/auth/signup`, {
                     method: 'POST',
                     headers: { 
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json'
+                        'Accept': 'application/json',
+                        'Origin': window.location.origin
                     },
                     body: JSON.stringify({ name, matricNo, password })
                 });
@@ -137,7 +144,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (error) {
                 console.error('Signup error:', error);
-                showMessage('signup-message', 'Error connecting to server. Please try again later.', 'error');
+                if (error.message.includes('Failed to fetch')) {
+                    showMessage('signup-message', 'Cannot connect to the server. Please check your internet connection or try again later.', 'error');
+                } else {
+                    showMessage('signup-message', 'Error connecting to server: ' + error.message, 'error');
+                }
             } finally {
                 toggleSpinner('signup-btn', false);
             }
@@ -168,12 +179,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                const response = await fetch(`${BASE_URL}/sign`, {
+                const response = await fetch(`${BASE_URL}/api/sign`, {
                     method: 'POST',
                     headers: { 
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`,
-                        'Accept': 'application/json'
+                        'Accept': 'application/json',
+                        'Origin': window.location.origin
                     },
                     body: JSON.stringify({ agreed: termsCheckbox.checked })
                 });
@@ -188,7 +200,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (error) {
                 console.error('Petition sign error:', error);
-                showMessage('petition-message', 'Error connecting to server. Please try again later.', 'error');
+                if (error.message.includes('Failed to fetch')) {
+                    showMessage('petition-message', 'Cannot connect to the server. Please check your internet connection or try again later.', 'error');
+                } else {
+                    showMessage('petition-message', 'Error connecting to server: ' + error.message, 'error');
+                }
             } finally {
                 toggleSpinner('sign-btn', false);
             }
@@ -204,9 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
             accordionContent.classList.toggle('active');
         });
     }
-
 });
-
 
 function togglePassword(inputId, toggleElement) {
     const input = document.getElementById(inputId);
