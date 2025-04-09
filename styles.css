@@ -1,0 +1,226 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f5f7fa; /* Softer, modern background */
+    color: #2d3748;
+}
+
+.container {
+    width: 100%;
+    max-width: 360px; /* Compact width to match the image */
+    margin: 20px;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+.container:hover {
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 25px;
+    letter-spacing: 0.5px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #4a5568;
+    margin-bottom: 8px;
+    letter-spacing: 0.2px;
+}
+
+input[type="text"],
+input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    background: #ffffff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus {
+    border-color: #4299e1;
+    box-shadow: 0 0 6px rgba(66, 153, 225, 0.2);
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background: #4299e1; /* Softer blue to match the image */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:disabled {
+    background: #a0aec0;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background: #3182ce; /* Slightly darker blue for hover */
+}
+
+.link-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 13px;
+    font-weight: 400;
+    color: #718096;
+}
+
+.link-text a {
+    color: #4299e1;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.link-text a:hover {
+    color: #3182ce;
+    text-decoration: underline;
+}
+
+/* Accordion Styling */
+.accordion {
+    margin-bottom: 20px;
+}
+
+.accordion-btn {
+    width: 100%;
+    padding: 12px;
+    background: #edf2f7;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4a5568;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.accordion-btn:hover {
+    background: #e2e8f0;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 15px;
+    background: #edf2f7;
+    border: 1px solid #e2e8f0;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.accordion-content p {
+    margin: 15px 0;
+    font-size: 13px;
+    font-weight: 400;
+    color: #5a6170;
+    line-height: 1.5;
+}
+
+.accordion-content.active {
+    max-height: 200px;
+    padding: 15px;
+}
+
+/* Checkbox Styling */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-group label {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 500;
+    color: #4a5568;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+    accent-color: #4299e1;
+}
+
+.checkbox-group a {
+    color: #4299e1;
+    text-decoration: none;
+}
+
+.checkbox-group a:hover {
+    color: #3182ce;
+    text-decoration: underline;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+    .container {
+        max-width: 100%;
+        margin: 15px;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    button {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .accordion-btn {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .accordion-content p {
+        font-size: 12px;
+    }
+
+    .link-text {
+        font-size: 12px;
+        margin-top: 15px;
+    }
+}
